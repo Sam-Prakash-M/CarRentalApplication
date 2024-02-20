@@ -1,21 +1,18 @@
 package com.samprakash.base;
 
-import java.util.Scanner;
-
 import com.samprakash.model.Cars;
 import com.samprakash.model.Customers;
 import com.samprakash.rental.RentalsView;
 import com.samprakash.search.ShowView;
+import com.samprakash.util.InputValidation;
 
 public class BaseView {
 	private final BaseViewModel baseViewModel;
-	private final Scanner scanner;
 	private final ShowView showView;
 	private final RentalsView rentalsView;
 
 	public BaseView() {
 		baseViewModel = new BaseViewModel(this);
-		scanner = new Scanner(System.in);
 		showView = new ShowView();
 		rentalsView = new RentalsView();
 	}
@@ -29,8 +26,7 @@ public class BaseView {
 			System.out.printf("%s %-30s %s\n", "|", "2) Customer", "|");
 			System.out.printf("%s %-30s %s\n", "|", "3) Exit", "|");
 			System.out.println("+--------------------------------+");
-			choice = scanner.nextInt();
-			scanner.nextLine();
+			choice = InputValidation.getInt("Enter Any One of the Given Option");
 			switch (choice) {
 
 			case 1 -> {
@@ -66,29 +62,25 @@ public class BaseView {
 			System.out.printf("%s %-50s %s\n", "|", "6) Show Entire Rent Details", "|");
 			System.out.printf("%s %-50s %s\n", "|", "7) LogOut", "|");
 			System.out.println("+----------------------------------------------------+");
-			choice = scanner.nextInt();
+			choice = InputValidation.getInt("Enter Any One of the Given Option");
 			switch (choice) {
 
 			case 1 -> {
-				
+
 				baseViewModel.addNewCar(getCarDetails());
-				
+
 			}
-			case 2,3 -> {
-				System.out.println("Enter a Car ID : ");
-				int carID = scanner.nextInt();
-				scanner.nextLine();
-				if(choice == 2) {
+			case 2, 3 -> {
+				int carID = InputValidation.getInt("Enter a Car ID : ");
+				if (choice == 2) {
 					baseViewModel.removeACar(carID);
+				} else {
+					boolean isAvailable = InputValidation.getBoolean("Enter y for true n for false");
+					baseViewModel.changeAvailabilityOfCar(carID, isAvailable);
 				}
-				else {
-					System.out.println("Enter y for true n for false");
-		boolean isAvailable = scanner.nextLine().toLowerCase().charAt(0) == 'y' ? true : false;
-		baseViewModel.changeAvailabilityOfCar(carID,isAvailable);
-				}
-				
+
 			}
-			
+
 			case 4 -> {
 				baseViewModel.showListOfCustomers();
 			}
@@ -99,7 +91,7 @@ public class BaseView {
 				baseViewModel.showEntireRentedDetails();
 			}
 			case 7 -> {
-				
+
 			}
 			default -> {
 
@@ -111,30 +103,19 @@ public class BaseView {
 	}
 
 	private Cars getCarDetails() {
-		
-		System.out.println("Enter a Car ID : ");
-		int carID = scanner.nextInt();
-		scanner.nextLine();
-		System.out.println("Enter a Car Name : ");
-		String carName = scanner.nextLine();
-		System.out.println("Enter a Car Model : ");
-		String carModel = scanner.nextLine();
-		System.out.println("Enter a  Car Manufacturing Year : ");
-		int year = scanner.nextInt();
-		scanner.nextLine();
-		System.out.println("Enter a Rental Price : ");
-		double rentalPrice = scanner.nextDouble();
-		scanner.nextLine();
-		System.out.println("Enter Car Availability y for true n for false :  ");
-		boolean isAvailable = scanner.nextLine().toLowerCase().charAt(0) == 'y' ? true : false;
+
+		int carID = InputValidation.getInt("Enter a Car ID : ");
+		String carName = InputValidation.getString("Enter a Car Name : ","[A-Za-z]{3,15}");
+		String carModel = InputValidation.getString("Enter a Car Model : ","[A-Za-z]{3,15}");
+		int year = InputValidation.getInt("Enter a  Car Manufacturing Year : ");
+		double rentalPrice = InputValidation.getDouble("Enter a Rental Price : ");
+		boolean isAvailable = InputValidation.getBoolean("Enter Car Availability y for true n for false :  ");
 		return new Cars(carID, year, carName, carModel, rentalPrice, isAvailable);
 	}
 
 	private String[] getUserNamePassWord() {
-		System.out.println("Enter a UserName : ");
-		String userName = scanner.nextLine();
-		System.out.println("Enter a Password : ");
-		String passWord = scanner.nextLine();
+		String userName = InputValidation.getString("Enter a UserName : ","^[a-zA-Z][a-zA-Z0-9@#\\-_]{2,14}$");
+		String passWord = InputValidation.getString("Enter a Password : ","^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
 		return new String[] { userName, passWord };
 	}
 
@@ -146,15 +127,13 @@ public class BaseView {
 			System.out.printf("%s %-30s %s\n", "|", "2) Sign in", "|");
 			System.out.printf("%s %-30s %s\n", "|", "3) Exit", "|");
 			System.out.println("+--------------------------------+");
-			choice = scanner.nextInt();
-			scanner.nextLine();
+			choice = InputValidation.getInt("Enter Any One of the Given Option");
 			switch (choice) {
 			case 1 -> {
 				Customers customers = getCustomerDetails();
 				String[] inputs = getUserNamePassWord();
-				customers.setUserName(inputs[0]);
-				customers.setPassWord(inputs[1]);
-				baseViewModel.addCustomers(customers);
+
+				baseViewModel.addCustomers(customers, inputs);
 
 			}
 			case 2 -> {
@@ -190,8 +169,7 @@ public class BaseView {
 			System.out.printf("%s %-30s %s\n", "|", "7) Returning a Car", "|");
 			System.out.printf("%s %-30s %s\n", "|", "8) Log Out", "|");
 			System.out.println("+--------------------------------+");
-			choice = scanner.nextInt();
-			scanner.nextLine();
+			choice = InputValidation.getInt("Enter Any One of the Given Option");
 			switch (choice) {
 
 			case 1 -> {
@@ -233,8 +211,7 @@ public class BaseView {
 			System.out.printf("%s %-40s %s\n", "|", "3) Find Cars Made Between Two Amounts", "|");
 			System.out.printf("%s %-40s %s\n", "|", "4) Exit", "|");
 			System.out.println("+------------------------------------------+");
-			choice = scanner.nextInt();
-			scanner.nextLine();
+			choice = InputValidation.getInt("Enter Any One of the Given Option");
 
 			switch (choice) {
 
@@ -270,7 +247,7 @@ public class BaseView {
 			System.out.printf("%s %-40s %s\n", "|", "3) Find Cars Made Between Two Years", "|");
 			System.out.printf("%s %-40s %s\n", "|", "4) Exit", "|");
 			System.out.println("+------------------------------------------+");
-			choice = scanner.nextInt();
+			choice = InputValidation.getInt("Enter Any One of the Given Option");
 			switch (choice) {
 
 			case 1, 2 -> {
@@ -294,16 +271,12 @@ public class BaseView {
 	}
 
 	private Customers getCustomerDetails() {
-		System.out.println("Enter a First Name : ");
-		String firstName = scanner.nextLine();
-		System.out.println("Enter a Last Name : ");
-		String lastName = scanner.nextLine();
-		System.out.println("Enter a Email-ID : ");
-		String emailID = scanner.nextLine();
-		System.out.println("Enter a Phone Number  : ");
-		String phoneNumber = scanner.nextLine();
-		System.out.println("Enter a Driving Licence  : ");
-		String drivingLicence = scanner.nextLine();
+
+		String firstName = InputValidation.getString("Enter a First Name : ","[A-Za-z]{3,15}");
+		String lastName = InputValidation.getString("Enter a Last Name : ","[A-Za-z]{3,15}");
+		String emailID = InputValidation.getString("Enter a Email-ID : ","^[a-z][a-zA-Z0-9_+&*-]{2,14}@gmail\\.com$");
+		String phoneNumber = InputValidation.getString("Enter a Phone Number  : ","(\\+91)?[6-9][0-9]{9}|(\\+91)[6-9][0-9]{9}");
+		String drivingLicence = InputValidation.getString("Enter a Driving Licence  : ","^[A-Z][A-Z0-9]{9}$");
 		return new Customers(firstName, lastName, emailID, phoneNumber, drivingLicence);
 	}
 

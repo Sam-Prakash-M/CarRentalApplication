@@ -1,37 +1,31 @@
 package com.samprakash.rental;
 
 import java.sql.ResultSet;
-import java.util.Scanner;
 
 import com.samprakash.model.Cars;
+import com.samprakash.util.InputValidation;
 
 public class RentalsView {
 
 	private final RentalsViewModel rentalsViewModel;
-	private final Scanner scanner;
+	
 
 	public RentalsView() {
 
 		rentalsViewModel = new RentalsViewModel(this);
-		scanner = new Scanner(System.in);
 	}
 
 	public void bookingACar(int customerID) {
 
-		System.out.println("Enter a Car Name : ");
-		String carName = scanner.nextLine();
-		System.out.println("Enter a Car Model : ");
-		String carModel = scanner.nextLine();
-		System.out.println("Enter a Manufacturing Year : ");
-		int year = scanner.nextInt();
-		scanner.nextLine();
+
+		String carName = InputValidation.getString("Enter a Car Name : ","[A-Za-z]{3,15}");
+		String carModel = InputValidation.getString("Enter a Car Model : ","[A-Za-z]{3,15}");
+		int year = InputValidation.getInt("Enter a Manufacturing Year : ");
 		Cars car = rentalsViewModel.isAvailableNow(carName, carModel, year);
 		if (car != null) {
-
-			System.out.println("Enter a Start Date of Rentals : ");
-			String startDate = scanner.nextLine();
-			System.out.println("Enter a End Date of Rentals : ");
-			String endDate = scanner.nextLine();
+			String startDate = InputValidation.getString("Enter a Start Date of Rentals : ","^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
+			
+			String endDate =  InputValidation.getString("Enter a End Date of Rentals : ","^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
 			rentalsViewModel.bookACar(startDate, endDate, car, customerID);
 		} else {
 			showView("There is No car with the Given Data : ");
@@ -45,12 +39,9 @@ public class RentalsView {
 	}
 
 	public void returningACar(int customerID) {
-			
-		System.out.println("Enter a Return Date : ");
-		String returnDate = scanner.nextLine();
-		System.out.println("Enter a Rental ID : ");
-		int rentalID = scanner.nextInt();
-		scanner.nextLine();
+		
+		String returnDate = InputValidation.getString("Enter a Return Date : ","^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
+		int rentalID = InputValidation.getInt("Enter a Rental ID : ");
 		ResultSet resultSet = rentalsViewModel.getCustomerRentalDetails(customerID,rentalID);
 		if (rentalsViewModel.isCarAlreadyBookedByThisCustomer(resultSet)) {
 			

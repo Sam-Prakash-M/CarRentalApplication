@@ -19,8 +19,8 @@ public class BaseViewModel {
 
 	}
 
-	public void addCustomers(Customers customers) {
-		CarRentalRepository.getInstance().addCustomer(customers);
+	public void addCustomers(Customers customers,String [] userNameAndPassword) {
+		CarRentalRepository.getInstance().addCustomer(customers,userNameAndPassword);
 		baseView.showStatus("New Customer Added SuccessFully...");
 
 	}

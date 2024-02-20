@@ -59,14 +59,14 @@ public class CarRentalRepository {
 
 	}
 
-	public ResultSet listOfCarsBetweenTheseAmounts(float lowAmount, float highAmount) {
+	public ResultSet listOfCarsBetweenTheseAmounts(double lowAmount, double highAmount) {
 		String query = "SELECT * FROM Cars WHERE rental_price BETWEEN ? AND ? ORDER BY rental_price,car_ID";
 	     preparedStatement = null;
 		 resultSet = null;
 		try {
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setFloat(1, lowAmount);
-			preparedStatement.setFloat(2, highAmount);
+			preparedStatement.setDouble(1, lowAmount);
+			preparedStatement.setDouble(2, highAmount);
 			resultSet = preparedStatement.executeQuery();
 
 		} catch (SQLException e) {
@@ -77,14 +77,14 @@ public class CarRentalRepository {
 
 	}
 
-	public ResultSet listOfCarsFilteredByAmounts(float amount, int choice) {
+	public ResultSet listOfCarsFilteredByAmounts(double amount, int choice) {
 		String query = "SELECT * FROM Cars WHERE rental_price " + (choice == 1 ? "<" : ">")
 				+ " ? ORDER BY rental_price,car_ID";
 		 preparedStatement = null;
 		 resultSet = null;
 		try {
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setFloat(1, amount);
+			preparedStatement.setDouble(1, amount);
 			resultSet = preparedStatement.executeQuery();
 
 		} catch (SQLException e) {
@@ -295,19 +295,19 @@ public class CarRentalRepository {
 		
 	}
 
-	public void addCustomer(Customers customers) {
+	public void addCustomer(Customers customers,String[] userNameAndPasword) {
 		try {
 			String query = "INSERT INTO Customers (first_name,last_name,email,phone_number,userName,passWord,driving_license_number) "
 					+ "VALUES(?,?,?,?,?,?,?)";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, customers.getFirstName());
-			preparedStatement.setString(2, customers.getLastName());
-			preparedStatement.setString(3, customers.getEmailID());
-			preparedStatement.setString(4, customers.getPhoneNo());
-			preparedStatement.setString(5, customers.getUserName());
-			preparedStatement.setString(6, customers.getPassWord());
+			preparedStatement.setString(1, customers.firstName());
+			preparedStatement.setString(2, customers.lastName());
+			preparedStatement.setString(3, customers.emailID());
+			preparedStatement.setString(4, customers.phoneNo());
+			preparedStatement.setString(5, userNameAndPasword[0]);
+			preparedStatement.setString(6, userNameAndPasword[1]);
 
-			preparedStatement.setString(7, customers.getDrivingLicence());
+			preparedStatement.setString(7, customers.drivingLicence());
 			int rows = preparedStatement.executeUpdate();
 			System.out.println(rows + " Rows affected ");
 		} catch (SQLException e) {

@@ -36,13 +36,13 @@ public class ShowViewModel {
 
 	}
 
-	public void findCarsBetWeenAmount(float lowAmount, float highAmount) {
+	public void findCarsBetWeenAmount(double lowAmount, double highAmount) {
 		ResultSet resultSet = CarRentalRepository.getInstance().listOfCarsBetweenTheseAmounts(lowAmount, highAmount);
 		showCarDetails(resultSet);
 	}
 
 
-	public void filtersCarsByAmount(float amount,int choice) {
+	public void filtersCarsByAmount(double amount,int choice) {
 		ResultSet resultSet = CarRentalRepository.getInstance().listOfCarsFilteredByAmounts(amount,choice);
 		showCarDetails(resultSet);
 	}
