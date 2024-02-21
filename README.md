@@ -79,16 +79,6 @@ The Car Rental System is a software application designed to manage the operation
 ### Cars, Customers, Rentals
 - Model classes representing car, customer, and rental entities.
 
-## Relationships
-- `BaseView` has a one-to-one relationship with `BaseViewModel`, `ShowView`, `RentalsView`, and `InputValidation`.
-- `ShowView` has a one-to-one relationship with `ShowViewModel`.
-- `RentalsView` has a one-to-one relationship with `RentalsViewModel`.
-- `BaseViewModel` has a one-to-many relationship with `Cars`, `Customers`, and `Rentals`.
-
-# Class Diagram for Car Rental Management System
-
-## Class Descriptions
-
 ### CarRentalRepository
 - Manages database operations related to car rental functionality.
 - Methods:
@@ -127,6 +117,13 @@ The Car Rental System is a software application designed to manage the operation
 ### CarRentalCustomerPanel
 - Represents the customer panel for interacting with car rental services.
 - Collaborates with `CarRentalRepository`.
+
+## Relationships
+- `BaseView` has a one-to-one relationship with `BaseViewModel`, `ShowView`, `RentalsView`, and `InputValidation`.
+- `ShowView` has a one-to-one relationship with `ShowViewModel`.
+- `RentalsView` has a one-to-one relationship with `RentalsViewModel`.
+- `BaseViewModel` has a one-to-many relationship with `Cars`, `Customers`, and `Rentals`.
+
 
 ### SQL Table
  ```
