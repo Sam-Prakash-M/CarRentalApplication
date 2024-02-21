@@ -24,9 +24,9 @@ public class ShowViewModel {
 					"Year", "RentalPrice"));
 			showView.viewStatus("+------------+--------------------------------+--------------------------------+------------+------------------+");
 			while (resultSet.next()) {
-				showView.viewStatus(String.format("| %-10s | %-30s | %-30s | %-10s | %-16s |",
+				showView.viewStatus(String.format("| %-10s | %-30s | %-30s | %-10.2f | %-16s |",
 						resultSet.getInt("car_id"), resultSet.getString("make"), resultSet.getString("Model"),
-						resultSet.getInt("Year"), resultSet.getFloat("Rental_Price")));
+						resultSet.getInt("Year"), resultSet.getDouble("Rental_Price")));
 				showView.viewStatus("+------------+--------------------------------+--------------------------------+------------+------------------+");
 			}
 			
@@ -63,9 +63,9 @@ public class ShowViewModel {
 					"Model", "Year", "RentalPrice", "IS Available"));
 			showView.viewStatus("+------------+--------------------------------+--------------------------------+------------+-----------------+---------------------+");
 			while (resultSet.next()) {
-				showView.viewStatus(String.format("| %-10s | %-30s | %-30s | %-10s | %-15s | %-19s |",
+				showView.viewStatus(String.format("| %-10s | %-30s | %-30s | %-10s | %-15.2f | %-19s |",
 						resultSet.getInt("car_id"), resultSet.getString("make"), resultSet.getString("Model"),
-						resultSet.getInt("Year"), resultSet.getFloat("Rental_Price"),
+						resultSet.getInt("Year"), resultSet.getDouble("Rental_Price"),
 						resultSet.getBoolean("is_Available") ? "Yes" : "No"));
 				showView.viewStatus("+------------+--------------------------------+--------------------------------+------------+-----------------+---------------------+");
 			}

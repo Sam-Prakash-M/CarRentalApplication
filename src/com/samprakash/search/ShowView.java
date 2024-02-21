@@ -1,6 +1,6 @@
 package com.samprakash.search;
 
-import com.samprakash.util.InputValidation;
+import com.samprakash.inputvalidation.InputValidation;
 
 public class ShowView {
 

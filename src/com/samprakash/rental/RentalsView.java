@@ -2,8 +2,8 @@ package com.samprakash.rental;
 
 import java.sql.ResultSet;
 
+import com.samprakash.inputvalidation.InputValidation;
 import com.samprakash.model.Cars;
-import com.samprakash.util.InputValidation;
 
 public class RentalsView {
 

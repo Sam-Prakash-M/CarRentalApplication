@@ -1,10 +1,10 @@
 package com.samprakash.base;
 
+import com.samprakash.inputvalidation.InputValidation;
 import com.samprakash.model.Cars;
 import com.samprakash.model.Customers;
 import com.samprakash.rental.RentalsView;
 import com.samprakash.search.ShowView;
-import com.samprakash.util.InputValidation;
 
 public class BaseView {
 	private final BaseViewModel baseViewModel;
@@ -94,7 +94,8 @@ public class BaseView {
 
 			}
 			default -> {
-
+				
+				System.out.print("Enter a Number BetWeen 1 to 7...");
 			}
 
 			}
@@ -195,7 +196,7 @@ public class BaseView {
 
 			}
 			default -> {
-				showStatus("Enter a Number BetWeen 1 to 7");
+				showStatus("Enter a Number BetWeen 1 to 8");
 			}
 			}
 		} while (choice != 8);

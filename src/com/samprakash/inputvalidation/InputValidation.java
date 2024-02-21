@@ -1,4 +1,4 @@
-package com.samprakash.util;
+package com.samprakash.inputvalidation;
 
 import java.util.Scanner;
 
