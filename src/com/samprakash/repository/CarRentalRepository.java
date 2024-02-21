@@ -243,8 +243,8 @@ public class CarRentalRepository {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, rentalID);
 			preparedStatement.setInt(2, customerID);
-			preparedStatement.setNull(3, Types.INTEGER);
-			preparedStatement.setNull(4, Types.INTEGER);
+			preparedStatement.setNull(3, Types.DATE);
+			preparedStatement.setNull(4, Types.DOUBLE);
 
 			resultSet = preparedStatement.executeQuery();
 
@@ -496,8 +496,8 @@ public class CarRentalRepository {
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, carID);
-			preparedStatement.setNull(2, Types.INTEGER);
-			preparedStatement.setNull(3, Types.INTEGER);
+			preparedStatement.setNull(2, Types.DATE);
+			preparedStatement.setNull(3, Types.DOUBLE);
 			resultSet = preparedStatement.executeQuery();
 			 
 			return resultSet.isBeforeFirst();
