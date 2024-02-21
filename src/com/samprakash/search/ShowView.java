@@ -23,7 +23,8 @@ public class ShowView {
 
 	public void searchByCarNameOrModel(int choice) {
 
-		String filter = InputValidation.getString(choice == 2 ? "Enter a Car Name : " : "Enter a Model Name : ","[A-Za-z]{3,15}");
+		String filter = InputValidation.getString((choice == 2 ? "Enter a Car Name : " : "Enter a Model Name : ")+"\n"
+				+"It Must Be 3 to 15 uppercase or lowercase letters Only","[A-Za-z]{3,15}");
 		showViewModel.findCarsByCarNameOrModel(filter, choice);
 
 	}

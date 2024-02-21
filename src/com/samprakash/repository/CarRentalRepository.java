@@ -470,7 +470,7 @@ public class CarRentalRepository {
 
 	public ResultSet getAllRentalDetails() {
 		String query = "SELECT * FROM cars INNER JOIN rentals ON cars.car_id = rentals.car_id "
-				+ "where actual_return_date IS  ? AND  final_receiced_amount IS  ?";
+				+ "WHERE actual_return_date IS  ? AND  final_receiced_amount IS  ?";
 	   preparedStatement = null;
 		resultSet = null;
 		 
@@ -486,6 +486,28 @@ public class CarRentalRepository {
 		}
 
 		return resultSet;
+	}
+
+	public boolean isCarNotUsingByAnyCustomer(int carID) {
+		String query = "SELECT * FROM rentals WHERE car_id = ? AND actual_return_date IS ? AND final_receiced_amount IS ?";
+	   preparedStatement = null;
+		resultSet = null;
+		 
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, carID);
+			preparedStatement.setNull(2, Types.INTEGER);
+			preparedStatement.setNull(3, Types.INTEGER);
+			resultSet = preparedStatement.executeQuery();
+			 
+			return resultSet.isBeforeFirst();
+		
+		} catch (SQLException e) {
+			System.out.println("SQL Exception: " + e.getMessage());
+		}
+
+		return false;
+		
 	}
 
 	

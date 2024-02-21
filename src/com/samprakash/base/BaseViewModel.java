@@ -90,6 +90,13 @@ public class BaseViewModel {
 
 	public void changeAvailabilityOfCar(int carID, boolean isAvailable) {
 		if (CarRentalRepository.getInstance().getAvailability(carID) != isAvailable) {
+			
+			if(isAvailable) {
+				if(CarRentalRepository.getInstance().isCarNotUsingByAnyCustomer(carID)) {
+					baseView.showStatus("Can't Change to Available Because this car Currently Used By Customer");
+					return;
+				}
+			}
 			CarRentalRepository.getInstance().changeAvailabilityOfCar(carID, isAvailable);
 			baseView.showStatus("Availability Changes to : " + (isAvailable ? "Available" : "Not Available"));
 		} else {

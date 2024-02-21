@@ -24,7 +24,7 @@ public class ShowViewModel {
 					"Year", "RentalPrice"));
 			showView.viewStatus("+------------+--------------------------------+--------------------------------+------------+------------------+");
 			while (resultSet.next()) {
-				showView.viewStatus(String.format("| %-10s | %-30s | %-30s | %-10.2f | %-16s |",
+				showView.viewStatus(String.format("| %-10s | %-30s | %-30s | %-10d | %-16.2f |",
 						resultSet.getInt("car_id"), resultSet.getString("make"), resultSet.getString("Model"),
 						resultSet.getInt("Year"), resultSet.getDouble("Rental_Price")));
 				showView.viewStatus("+------------+--------------------------------+--------------------------------+------------+------------------+");

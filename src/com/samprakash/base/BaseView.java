@@ -106,8 +106,10 @@ public class BaseView {
 	private Cars getCarDetails() {
 
 		int carID = InputValidation.getInt("Enter a Car ID : ");
-		String carName = InputValidation.getString("Enter a Car Name : ","[A-Za-z]{3,15}");
-		String carModel = InputValidation.getString("Enter a Car Model : ","[A-Za-z]{3,15}");
+		String carName = InputValidation.getString("Enter a Car Name : \n"
+				+ "It Must Be 3 to 15 uppercase or lowercase letters Only","[A-Za-z]{3,15}");
+		String carModel = InputValidation.getString("Enter a Car Model : \n"
+				+ "It Must Be 3 to 15 uppercase or lowercase letters Only","[A-Za-z]{3,15}");
 		int year = InputValidation.getInt("Enter a  Car Manufacturing Year : ");
 		double rentalPrice = InputValidation.getDouble("Enter a Rental Price : ");
 		boolean isAvailable = InputValidation.getBoolean("Enter Car Availability y for true n for false :  ");
@@ -115,8 +117,17 @@ public class BaseView {
 	}
 
 	private String[] getUserNamePassWord() {
-		String userName = InputValidation.getString("Enter a UserName : ","^[a-zA-Z][a-zA-Z0-9@#\\-_]{2,14}$");
-		String passWord = InputValidation.getString("Enter a Password : ","^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
+		String userName = InputValidation.getString("Enter a UserName : \n"
+				+ "The input must start with an alphabet character (either uppercase or lowercase).\r\n"
+				+ "Following the first character, any combination of alphanumeric characters (a-zA-Z0-9) or the \ncharacters \"@\" \"#\" \"-\" \"_\" can occur.\r\n"
+				+ "The length of the input must be between 3 and 15 characters.","^[a-zA-Z][a-zA-Z0-9@#\\-_]{2,14}$");
+		String passWord = InputValidation.getString("Enter a Password : \n"
+				+ "At least one digit.\r\n"
+				+ "At least one lowercase letter.\r\n"
+				+ "At least one uppercase letter.\r\n"
+				+ "At least one special character from the specified set.(?=.*[@#$%^&+=])\r\n"
+				+ "No whitespace characters.\r\n"
+				+ "Length between 8 and 15 characters.","^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
 		return new String[] { userName, passWord };
 	}
 
@@ -273,11 +284,22 @@ public class BaseView {
 
 	private Customers getCustomerDetails() {
 
-		String firstName = InputValidation.getString("Enter a First Name : ","[A-Za-z]{3,15}");
-		String lastName = InputValidation.getString("Enter a Last Name : ","[A-Za-z]{3,15}");
-		String emailID = InputValidation.getString("Enter a Email-ID : ","^[a-z][a-zA-Z0-9_+&*-]{2,14}@gmail\\.com$");
-		String phoneNumber = InputValidation.getString("Enter a Phone Number  : ","(\\+91)?[6-9][0-9]{9}|(\\+91)[6-9][0-9]{9}");
-		String drivingLicence = InputValidation.getString("Enter a Driving Licence  : ","^[A-Z][A-Z0-9]{9}$");
+		String firstName = InputValidation.getString("Enter a First Name : \n"
+				+ "It Must Be 3 to 15 uppercase or lowercase letters Only","[A-Za-z]{3,15}");
+		String lastName = InputValidation.getString("Enter a Last Name : \n"
+				+ "It Must Be 3 to 15 uppercase or lowercase letters Only","[A-Za-z]{3,15}");
+		String emailID = InputValidation.getString("Enter a Email-ID : \n"
+				+ "Starts with a lowercase letter.\r\n"
+				+ "Can contain alphanumeric characters, underscore, plus sign, ampersand, asterisk, or hyphen.\r\n"
+				+ "Must be between 3 and 15 characters in length.\r\n"
+				+ "Ends with \"@gmail.com\".","^[a-z][a-zA-Z0-9_+&*-]{2,14}@gmail\\.com$");
+		String phoneNumber = InputValidation.getString("Enter a Phone Number  : \n"
+				+ "The phone number may or may not start with \"+91\" and must first digit\n"
+				+ " must start with 6-9 and  consist of 10 digits in total.\r\n"
+				+ "If it starts with \"+91\", the prefix is required, and it must be followed by 9 digits.","(\\+91)?[6-9][0-9]{9}|(\\+91)[6-9][0-9]{9}");
+		String drivingLicence = InputValidation.getString("Enter a Driving Licence  : \n"
+				+ "Start with an uppercase letter.\r\n"
+				+ "Are followed by exactly 9 characters, which can be uppercase letters or digits.","^[A-Z][A-Z0-9]{9}$");
 		return new Customers(firstName, lastName, emailID, phoneNumber, drivingLicence);
 	}
 
